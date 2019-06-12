@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">PartTimeJobApplication</string>
+    <string name="title">出発前予定数</string>
+    <string name="daily">"デイリー"</string>
+    <string name="daily2">デイリー副</string>
+    <string name="daily_plus">デイリープラス</string>
+    <string name="daily_plus2">デイリープラス副</string>
+    <string name="sd_set">SDセット</string>
+    <string name="sd2">SD副</string>
+    <string name="karubi">カルビ</string>
+    <string name="karubi2">カルビ副</string>
+    <string name="prepareSave_btn">計算</string>
+    <string name="prepareClear_btn">クリア</string>
+    <string name="prepare_btn3"></string>
 </resources>
