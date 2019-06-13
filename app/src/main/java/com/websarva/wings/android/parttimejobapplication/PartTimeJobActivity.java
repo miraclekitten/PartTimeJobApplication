@@ -50,10 +50,13 @@ public class PartTimeJobActivity extends AppCompatActivity {
             EditText karu2Edit = findViewById(R.id.karubi2_edittext);
             TextView menu1 = findViewById(R.id.menu1);
             TextView menu2 = findViewById(R.id.menu2);
+            TextView gohan = findViewById(R.id.gohan);
 
             switch (id) {
 
                 case R.id.btCalc:
+
+                    int gohanNum = 0;
 
                     if(dailyEdit.getText().toString().length() != 0 && daily2Edit.getText().toString().length() != 0) {
                         int dailyNum = Integer.parseInt(dailyEdit.getText().toString()) + Integer.parseInt(daily2Edit.getText().toString());
@@ -64,9 +67,10 @@ public class PartTimeJobActivity extends AppCompatActivity {
                         dailyStr = dailyStr.replace(String.valueOf(dailyBox), "<strong><font color=\"red\">" + String.valueOf(dailyBox) + "</font></strong>");
                         dailyStr = dailyStr.replace(String.valueOf(dailyRem), "<strong><font color=\"red\">" + String.valueOf(dailyRem) + "</font></strong>");
                         menu1.setText(Html.fromHtml(dailyStr));
+                        gohanNum += Integer.parseInt(dailyEdit.getText().toString());
                     }
                     else{
-                        clearMenu(menu1, menu2);
+                        clearMenu(menu1, menu2, gohan);
                         menu1.setText(Html.fromHtml("<strong><font color=\"red\">デイリーの値を入力して下さい</font></strong>"));
                         clearEditText(dailyEdit, daily2Edit);
                         break;
@@ -82,20 +86,35 @@ public class PartTimeJobActivity extends AppCompatActivity {
                         dailyPlusStr = dailyPlusStr.replace(String.valueOf(dailyPlusBox), "<strong><font color=\"red\">" + String.valueOf(dailyPlusBox) + "</font></strong>");
                         dailyPlusStr = dailyPlusStr.replace(String.valueOf(dailyPlusRem), "<strong><font color=\"red\">" + String.valueOf(dailyPlusRem) + "</font></strong>");
                         menu2.setText(Html.fromHtml(dailyPlusStr));
-
+                        gohanNum += Integer.parseInt(dailyPlusEdit.getText().toString());
                     }
                     else{
-                        clearMenu(menu1, menu2);
+                        clearMenu(menu1, menu2, gohan);
                         menu1.setText(Html.fromHtml("<strong><font color=\"red\">デイリープラスの値を入力して下さい</font></strong>"));
                         clearEditText(dailyPlusEdit, dailyPlus2Edit);
                         break;
                     }
 
+                    /**
+                     * ご飯の処理
+                     *　各場所で足し合わせているご飯の数から計算する
+                     */
+                    if(gohanNum != 0){
+                        int gohanBox = gohanNum / 20;
+                        int gohanRem = gohanNum % 20;
+                        String gohanStr = "ごはんの合計数は " + gohanNum + " です。(箱" + gohanBox + "個と" + gohanRem + "個です)";
+                        gohanStr = gohanStr.replace(String.valueOf(gohanNum), "<strong><font color=\"blue\">" + String.valueOf(gohanNum) + "</font></strong>");
+                        gohanStr = gohanStr.replace(String.valueOf(gohanBox), "<strong><font color=\"red\">" + String.valueOf(gohanBox) + "</font></strong>");
+                        gohanStr = gohanStr.replace(String.valueOf(gohanRem), "<strong><font color=\"red\">" + String.valueOf(gohanRem) + "</font></strong>");
+                        gohan.setText(Html.fromHtml(gohanStr));
+                    }
+
+
                     break;
 
                 case R.id.btClear:
                     clearEditText(dailyEdit, daily2Edit, dailyPlusEdit, dailyPlus2Edit, sdEdit, sd2Edit, karuEdit, karu2Edit);
-                    clearMenu(menu1, menu2);
+                    clearMenu(menu1, menu2, gohan);
                     break;
 
             }
