@@ -49,7 +49,7 @@
         android:layout_height="15dp"
         android:layout_marginStart="8dp"
         android:text="@string/sd_set"
-        app:layout_constraintBaseline_toBaselineOf="@+id/daily2_edittext"
+        app:layout_constraintBaseline_toBaselineOf="@+id/sdSet_edittext"
         app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
     <TextView
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/daily2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/dailyPlus_edittext"
+        app:layout_constraintBaseline_toBaselineOf="@+id/daily2_edittext"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/sd2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/dailyPlus2_edittext"
+        app:layout_constraintBaseline_toBaselineOf="@+id/sd2_edittext"
         app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
     <TextView
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/daily_plus"
-        app:layout_constraintBaseline_toBaselineOf="@+id/sdSet_edittext"
+        app:layout_constraintBaseline_toBaselineOf="@+id/dailyPlus_edittext"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/karubi"
-        app:layout_constraintBaseline_toBaselineOf="@+id/sd2_edittext"
+        app:layout_constraintBaseline_toBaselineOf="@+id/karubi_edittext"
         app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
     <TextView
@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/daily_plus2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/karubi_edittext"
+        app:layout_constraintBaseline_toBaselineOf="@+id/dailyPlus2_edittext"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -107,7 +107,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
     <EditText
-        android:id="@+id/daily2_edittext"
+        android:id="@+id/sdSet_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -121,7 +121,7 @@
 
 
     <EditText
-        android:id="@+id/dailyPlus_edittext"
+        android:id="@+id/daily2_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -132,35 +132,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/daily2_edittext" />
-
-    <EditText
-        android:id="@+id/dailyPlus2_edittext"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/daily_edittext" />
-
-    <EditText
-        android:id="@+id/sdSet_edittext"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/dailyPlus2_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/sdSet_edittext" />
 
     <EditText
         android:id="@+id/sd2_edittext"
@@ -174,10 +146,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/dailyPlus2_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/sdSet_edittext" />
 
     <EditText
-        android:id="@+id/karubi_edittext"
+        android:id="@+id/dailyPlus_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -191,7 +163,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sd2_edittext" />
 
     <EditText
-        android:id="@+id/karubi2_edittext"
+        android:id="@+id/karubi_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -203,6 +175,34 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/sd2_edittext" />
+
+    <EditText
+        android:id="@+id/dailyPlus2_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/karubi_edittext" />
+
+    <EditText
+        android:id="@+id/karubi2_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/karubi_edittext" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -264,15 +264,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="78dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/linearlayout_boarder"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/karubi2_edittext">
+        app:layout_constraintTop_toBottomOf="@+id/dailyPlus2_edittext">
 
         <TextView
             android:id="@+id/prepare_syokiti"
@@ -296,6 +297,7 @@
                 android:text="test1" />
 
             <TextView
+                android:id="@+id/menu2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/linearlayout_line"
@@ -311,7 +313,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/menu2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp" />

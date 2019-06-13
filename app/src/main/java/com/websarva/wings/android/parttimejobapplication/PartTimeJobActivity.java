@@ -1,8 +1,13 @@
 package com.websarva.wings.android.parttimejobapplication;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import static android.text.InputType.TYPE_CLASS_NUMBER;
 
@@ -12,9 +17,89 @@ public class PartTimeJobActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_part_time_job);
-
         setInputTypes();
+
+        Button calcBtn = findViewById(R.id.btCalc);
+        calcBtn.setOnClickListener(new CalcListener());
+        /*
+        無名クラスでの実装
+        calcBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // クリック時の処理
+            }
+        });
+        */
+
     }
+
+
+    private class CalcListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view){
+            int id = view.getId();
+            EditText dailyEdit = findViewById(R.id.daily_edittext);
+            EditText daily2Edit = findViewById(R.id.daily2_edittext);
+            EditText dailyPlusEdit = findViewById(R.id.dailyPlus_edittext);
+            EditText dailyPlus2Edit = findViewById(R.id.dailyPlus2_edittext);
+            EditText sdEdit = findViewById(R.id.sdSet_edittext);
+            EditText sd2Edit = findViewById(R.id.sd2_edittext);
+            EditText karuEdit = findViewById(R.id.karubi_edittext);
+            EditText karu2Edit = findViewById(R.id.karubi2_edittext);
+
+            switch (id) {
+
+                case R.id.btCalc:
+                    TextView menu1 = findViewById(R.id.menu1);
+                    if(dailyEdit.getText().toString().length() != 0 && daily2Edit.getText().toString().length() != 0) {
+                        int dailyNum = Integer.parseInt(dailyEdit.getText().toString()) + Integer.parseInt(daily2Edit.getText().toString());
+                        int dailyBox = dailyNum / 8;
+                        int dailyRem = dailyNum % 8;
+                        String dailyStr = "デイリーの合計数は " + dailyNum + " です。(箱" + dailyBox + "個と" + dailyRem + "個です。)";
+                        dailyStr = dailyStr.replace(String.valueOf(dailyNum), "<strong><font color=\"blue\">" + String.valueOf(dailyNum) + "</font></strong>");
+                        dailyStr = dailyStr.replace(String.valueOf(dailyBox), "<strong><font color=\"red\">" + String.valueOf(dailyBox) + "</font></strong>");
+                        dailyStr = dailyStr.replace(String.valueOf(dailyRem), "<strong><font color=\"red\">" + String.valueOf(dailyRem) + "</font></strong>");
+                        menu1.setText(Html.fromHtml(dailyStr));
+                    }
+                    else{menu1.setText("デイリーの値を入力して下さい");
+                        menu1.setTextColor(Color.RED);
+                        dailyEdit.setText("");
+                        daily2Edit.setText("");
+                        break;
+                    }
+
+
+
+                    TextView menu2 = findViewById(R.id.menu2);
+                    if(dailyPlusEdit.getText().toString().length() != 0 && dailyPlus2Edit.getText().toString().length() != 0) {
+                        int dailyPlusNum = Integer.parseInt(dailyPlusEdit.getText().toString()) + Integer.parseInt(dailyPlus2Edit.getText().toString());
+                        int dailyPlusBox = dailyPlusNum / 6;
+                        int dailyPlusRem = dailyPlusNum % 6;
+                        String dailyPlusStr = "デイリープラスの合計数は " + dailyPlusNum + " です。(箱" + dailyPlusBox + "個と" + dailyPlusRem + "個です。)";
+                        dailyPlusStr = dailyPlusStr.replace(String.valueOf(dailyPlusNum), "<strong><font color=\"blue\">" + String.valueOf(dailyPlusNum) + "</font></strong>");
+                        dailyPlusStr = dailyPlusStr.replace(String.valueOf(dailyPlusBox), "<strong><font color=\"red\">" + String.valueOf(dailyPlusBox) + "</font></strong>");
+                        dailyPlusStr = dailyPlusStr.replace(String.valueOf(dailyPlusRem), "<strong><font color=\"red\">" + String.valueOf(dailyPlusRem) + "</font></strong>");
+                        menu2.setText(Html.fromHtml(dailyPlusStr));
+
+                    }
+                    else{
+                        menu2.setText("デイリープラスの値を入力して下さい");
+                        menu2.setTextColor(Color.RED);
+                        dailyPlusEdit.setText("");
+                        dailyPlus2Edit.setText("");
+                        break;
+                    }
+
+                    break;
+
+                case R.id.btClear:
+                    break;
+
+
+            }
+        }
+    }
+
 
     private void setInputTypes() {
         EditText daily = (EditText) findViewById(R.id.daily_edittext);
