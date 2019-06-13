@@ -37,11 +37,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:gravity="right"
         android:inputType="textPersonName"
         android:text="0"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        android:selectAllOnFocus="true"/>
 
 
     <TextView
@@ -115,11 +117,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:gravity="right"
         android:inputType="textEmailAddress"
         android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        android:selectAllOnFocus="true"/>
 
 
     <EditText
@@ -130,12 +134,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:gravity="right"
         android:inputType="textEmailAddress"
         android:text="0"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/sdSet_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/sdSet_edittext"
+        android:selectAllOnFocus="true"/>
 
     <EditText
         android:id="@+id/sd2_edittext"
@@ -145,12 +151,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:gravity="right"
         android:inputType="textEmailAddress"
         android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/sdSet_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/sdSet_edittext"
+        android:selectAllOnFocus="true"/>
 
     <EditText
         android:id="@+id/dailyPlus_edittext"
@@ -160,12 +168,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:gravity="right"
         android:inputType="textEmailAddress"
         android:text="0"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/sd2_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/sd2_edittext"
+        android:selectAllOnFocus="true"/>
 
     <EditText
         android:id="@+id/karubi_edittext"
@@ -175,12 +185,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:gravity="right"
         android:inputType="textEmailAddress"
         android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/sd2_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/sd2_edittext"
+        android:selectAllOnFocus="true"/>
 
     <EditText
         android:id="@+id/dailyPlus2_edittext"
@@ -190,12 +202,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:gravity="right"
         android:inputType="textEmailAddress"
         android:text="0"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/karubi_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/karubi_edittext"
+        android:selectAllOnFocus="true"/>
 
     <EditText
         android:id="@+id/karubi2_edittext"
@@ -205,13 +219,15 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:gravity="right"
         android:inputType="textEmailAddress"
         android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/karubi_edittext"
-        tools:text="0" />
+        tools:text="0"
+        android:selectAllOnFocus="true"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"

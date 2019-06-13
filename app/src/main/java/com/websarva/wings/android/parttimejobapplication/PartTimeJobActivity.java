@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,7 +64,7 @@ public class PartTimeJobActivity extends AppCompatActivity {
                     if(TextUtils.isEmpty(dailyEdit.getText()) || TextUtils.isEmpty(daily2Edit.getText()) || TextUtils.isEmpty(dailyPlusEdit.getText()) || TextUtils.isEmpty(dailyPlus2Edit.getText()) ||
                             TextUtils.isEmpty(sdEdit.getText()) || TextUtils.isEmpty(sd2Edit.getText()) || TextUtils.isEmpty(karuEdit.getText()) || TextUtils.isEmpty(karu2Edit.getText())){
                         clearMenu(menu1, menu2, menu3, menu4, gohan);
-                        menu1.setText("未入力箇所があります。");
+                        menu1.setText(Html.fromHtml("<strong><font color=\"red\">未入力箇所があります。</font></strong>"));
                         break;
                     }
 
