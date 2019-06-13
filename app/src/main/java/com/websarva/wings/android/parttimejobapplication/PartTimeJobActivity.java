@@ -65,8 +65,9 @@ public class PartTimeJobActivity extends AppCompatActivity {
                         dailyStr = dailyStr.replace(String.valueOf(dailyRem), "<strong><font color=\"red\">" + String.valueOf(dailyRem) + "</font></strong>");
                         menu1.setText(Html.fromHtml(dailyStr));
                     }
-                    else{menu1.setText("デイリーの値を入力して下さい");
-                        menu1.setTextColor(Color.RED);
+                    else{
+                        menu1.setText(Html.fromHtml("<strong><font color=\"red\">デイリーの値を入力して下さい</font></strong>"));
+                 //     menu1.setTextColor(Color.RED);
                         dailyEdit.setText("");
                         daily2Edit.setText("");
                         break;
@@ -85,8 +86,8 @@ public class PartTimeJobActivity extends AppCompatActivity {
 
                     }
                     else{
-                        menu2.setText("デイリープラスの値を入力して下さい");
-                        menu2.setTextColor(Color.RED);
+                        menu1.setText(Html.fromHtml("<strong><font color=\"red\">デイリープラスの値を入力して下さい</font></strong>"));
+                 ///    menu2.setTextColor(Color.RED);
                         dailyPlusEdit.setText("");
                         dailyPlus2Edit.setText("");
                         break;
