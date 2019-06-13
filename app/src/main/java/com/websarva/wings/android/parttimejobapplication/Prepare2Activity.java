@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import static android.text.InputType.TYPE_CLASS_NUMBER;
+import static java.lang.Math.abs;
 
 public class Prepare2Activity extends AppCompatActivity {
 
@@ -18,7 +19,6 @@ public class Prepare2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prepare2);
-        Intent intent = getIntent();
 
 
         setInputTypes();
@@ -44,6 +44,7 @@ public class Prepare2Activity extends AppCompatActivity {
 
     private class BtnListener implements View.OnClickListener{
 
+        private Intent intent = getIntent();
         private EditText dailyEdit = findViewById(R.id.daily_edittext);
         private EditText daily2Edit = findViewById(R.id.daily2_edittext);
         private EditText dailyPlusEdit = findViewById(R.id.dailyPlus_edittext);
@@ -108,10 +109,27 @@ public class Prepare2Activity extends AppCompatActivity {
                         dailyNum = Integer.parseInt(dailyEdit.getText().toString()) + Integer.parseInt(daily2Edit.getText().toString());
                         dailyBox = dailyNum / 8;
                         dailyRem = dailyNum % 8;
-                        String dailyStr = "デイリーの合計数は " + dailyNum + " です。(箱" + dailyBox + "個と" + dailyRem + "個です)";
+                        //データがない場合、第二引数の0が返される。
+                        int preDailyNum = intent.getIntExtra("dailyNum", 0);
+                        if(dailyNum == 0){
+                            clearMenu(menu1, menu2, menu3, menu4);
+                            menu1.setText("予定数に間違いがある可能性があります。(＊デイリーが0個)");
+                            break;
+                        }
+
+                        int dailyDiff = dailyNum - preDailyNum;
+                        String diffMessage = null;
+                        if(dailyDiff == 0){
+                            diffMessage = "デイリーの積み下ろしはありません";
+                        } else if(dailyDiff > 0){
+                            diffMessage = "個積んでください";
+                        } else {
+                            diffMessage = "個降ろしてください";
+                        }
+
+                        String dailyStr = "デイリーの合計数は " + dailyNum + " です。(" + abs(dailyDiff) + diffMessage + ")";
                         dailyStr = dailyStr.replace(String.valueOf(dailyNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(dailyNum) + "</font></strong> です");
-                        dailyStr = dailyStr.replace("箱" + String.valueOf(dailyBox) + "個", "箱<strong><font color=\"red\">" + String.valueOf(dailyBox) + "</font></strong>個");
-                        dailyStr = dailyStr.replace(String.valueOf(dailyRem) + "個", "<strong><font color=\"red\">" + String.valueOf(dailyRem) + "</font></strong>個");
+                        dailyStr = dailyStr.replace(abs(dailyDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(dailyDiff) + diffMessage + ")"+ "</font></strong>");
                         menu1.setText(Html.fromHtml(dailyStr));
                         gohanNum += Integer.parseInt(dailyEdit.getText().toString());
                     }
@@ -130,10 +148,28 @@ public class Prepare2Activity extends AppCompatActivity {
                         dailyPlusNum = Integer.parseInt(dailyPlusEdit.getText().toString()) + Integer.parseInt(dailyPlus2Edit.getText().toString());
                         dailyPlusBox = dailyPlusNum / 6;
                         dailyPlusRem = dailyPlusNum % 6;
-                        String dailyPlusStr = "デイリープラスの合計数は " + dailyPlusNum + " です。(箱" + dailyPlusBox + "個と" + dailyPlusRem + "個です)";
+
+
+                        int preDailyPlusNum = intent.getIntExtra("dailyPlusNum", 0);
+                        if(dailyPlusNum == 0){
+                            clearMenu(menu1, menu2, menu3, menu4);
+                            menu1.setText("予定数に間違いがある可能性があります。(＊デイリープラスが0個)");
+                            break;
+                        }
+
+                        int dailyPlusDiff = dailyPlusNum - preDailyPlusNum;
+                        String diffMessage = null;
+                        if(dailyPlusDiff == 0){
+                            diffMessage = "デイリーの積み下ろしはありません";
+                        } else if(dailyPlusDiff > 0){
+                            diffMessage = "個積んでください";
+                        } else {
+                            diffMessage = "個降ろしてください";
+                        }
+
+                        String dailyPlusStr = "デイリープラスの合計数は "  + dailyPlusNum + " です。(" + abs(dailyPlusDiff) + diffMessage + ")";
                         dailyPlusStr = dailyPlusStr.replace(String.valueOf(dailyPlusNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(dailyPlusNum) + "</font></strong> です");
-                        dailyPlusStr = dailyPlusStr.replace("箱" + String.valueOf(dailyPlusBox) + "個", "箱<strong><font color=\"red\">" + String.valueOf(dailyPlusBox) + "</font></strong>個");
-                        dailyPlusStr = dailyPlusStr.replace(String.valueOf(dailyPlusRem) + "個", "<strong><font color=\"red\">" + String.valueOf(dailyPlusRem) + "</font></strong>個");
+                        dailyPlusStr = dailyPlusStr.replace(abs(dailyPlusDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(dailyPlusDiff) + diffMessage + ")"+ "</font></strong>");
                         menu2.setText(Html.fromHtml(dailyPlusStr));
                         gohanNum += Integer.parseInt(dailyPlusEdit.getText().toString());
                     }
@@ -152,10 +188,27 @@ public class Prepare2Activity extends AppCompatActivity {
                         sdNum = Integer.parseInt(sdEdit.getText().toString()) + Integer.parseInt(sd2Edit.getText().toString());
                         sdBox = sdNum / 6;
                         sdRem = sdNum % 6;
-                        String sdStr = "SDの合計数は " + sdNum + " です。(箱" + sdBox + "個と" + sdRem + "個です)";
+
+                        int presdNum = intent.getIntExtra("sdNum", 0);
+                        if(presdNum == 0){
+                            clearMenu(menu1, menu2, menu3, menu4);
+                            menu1.setText("予定数に間違いがある可能性があります。(＊デイリープラスが0個)");
+                            break;
+                        }
+
+                        int sdDiff = sdNum - presdNum;
+                        String diffMessage = null;
+                        if(sdDiff == 0){
+                            diffMessage = "SDの積み下ろしはありません";
+                        } else if(sdDiff > 0){
+                            diffMessage = "個積んでください";
+                        } else {
+                            diffMessage = "個降ろしてください";
+                        }
+
+                        String sdStr = "SDの合計数は "  + sdNum + " です。(" + abs(sdDiff) + diffMessage + ")";
                         sdStr = sdStr.replace(String.valueOf(sdNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(sdNum) + "</font></strong> です");
-                        sdStr = sdStr.replace("箱" + String.valueOf(sdBox) + "個", "箱<strong><font color=\"red\">" + String.valueOf(sdBox) + "</font></strong>個");
-                        sdStr = sdStr.replace(String.valueOf(sdRem) + "個", "<strong><font color=\"red\">" + String.valueOf(sdRem) + "</font></strong>個");
+                        sdStr = sdStr.replace(abs(sdDiff) + diffMessage, "<strong><font color=\"red\">" + abs(sdDiff) + diffMessage + "</font></strong>");
                         menu3.setText(Html.fromHtml(sdStr));
                         gohanNum += Integer.parseInt(sdEdit.getText().toString());
                     }
@@ -171,10 +224,30 @@ public class Prepare2Activity extends AppCompatActivity {
                         karuNum = Integer.parseInt(karuEdit.getText().toString()) + Integer.parseInt(karu2Edit.getText().toString());
                         karuBox = karuNum / 6;
                         karuRem = karuNum % 6;
-                        String karuStr = "カルビの合計数は " + karuNum + " です。(箱" + karuBox + "個と" + karuRem + "個です)";
+
+
+                        int prekaruNum = intent.getIntExtra("karuNum", 0);
+                        /*
+                        if(prekaruNum == 0){
+                            clearMenu(menu1, menu2, menu3, menu4);
+                            menu1.setText("予定数に間違いがある可能性があります。(＊カルビが0個)");
+                            break;
+                        }
+                        */
+
+                        int karuDiff = karuNum - prekaruNum;
+                        String diffMessage = null;
+                        if(karuDiff == 0){
+                            diffMessage = "カルビの積み下ろしはありません";
+                        } else if(karuDiff > 0){
+                            diffMessage = "個積んでください";
+                        } else {
+                            diffMessage = "個降ろしてください";
+                        }
+
+                        String karuStr = "カルビの合計数は "  + karuNum + " です。(" + abs(karuDiff) + diffMessage + ")";
                         karuStr = karuStr.replace(String.valueOf(karuNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(karuNum) + "</font></strong> です");
-                        karuStr = karuStr.replace("箱" + String.valueOf(karuBox) + "個", "箱<strong><font color=\"red\">" + String.valueOf(karuBox) + "</font></strong>個");
-                        karuStr = karuStr.replace(String.valueOf(karuRem) + "個", "<strong><font color=\"red\">" + String.valueOf(karuRem) + "</font></strong>個");
+                        karuStr = karuStr.replace(abs(karuDiff) + diffMessage, "<strong><font color=\"red\">" + abs(karuDiff) + diffMessage + "</font></strong>");
                         menu4.setText(Html.fromHtml(karuStr));
                         gohanNum += Integer.parseInt(karuEdit.getText().toString());
                     }
@@ -191,16 +264,71 @@ public class Prepare2Activity extends AppCompatActivity {
                         gohanRem = gohanNum % 20;
                         gohanBigNum = Integer.parseInt(gohanBigEdit.getText().toString());
                         gohanSmallNum =  Integer.parseInt(gohanSmallEdit.getText().toString());
-                        String gohanStr = "ごはんの合計数は " + gohanNum + " です。(箱" + gohanBox + "個と" + gohanRem + "個です)";
-                        String gohanSubStr = "普通盛は" + (gohanNum - (gohanBigNum + gohanSmallNum)) + "個で、大盛は" + gohanBigNum + "個で、小盛は" + gohanSmallNum + "個です。";
+
+                        int preGohanNum = intent.getIntExtra("gohanNum", 0);
+                        int preGohanBigNum = intent.getIntExtra("gohanBigNum", 0);
+                        int preGohanSmallNum = intent.getIntExtra("gohanSmallNum", 0);
+                        if(preGohanNum == 0){
+                            clearMenu(menu1, menu2, menu3, menu4);
+                            menu1.setText("予定数に間違いがある可能性があります。(＊ごはんが0個)");
+                            break;
+                        }
+
+                        int gohanDiff = gohanNum - preGohanNum;
+                        int gohanBigDiff = gohanBigNum - preGohanBigNum;
+                        int gohanSmallDiff = gohanSmallNum - preGohanSmallNum;
+
+                        String diffMessage = "";
+                        if(gohanDiff == 0 && gohanBigDiff == 0 && gohanSmallDiff == 0){
+                            diffMessage = "ご飯の積み下ろしはありません。";
+                        }
+                        //全体数に変更があるとき
+                        if(gohanDiff != 0){
+                            //全体数に変化はあるが、普通盛によるものでない場合
+                            if(gohanDiff == (gohanBigDiff + gohanSmallDiff)){
+
+                            }
+                            //普通盛が関係しているとき
+                            else{
+                                if(gohanDiff - (gohanBigDiff + gohanSmallDiff) > 0){
+                                    diffMessage += "普通盛が" + (gohanDiff - (gohanBigDiff + gohanSmallDiff)) +"個増えました。";
+                                }
+                                else{
+                                    diffMessage += "普通盛が" + abs(gohanDiff - (gohanBigDiff + gohanSmallDiff)) +"個減りました。。";
+                                }
+                            }
+                        }
+
+                        //大盛に変更があるとき
+                        if(gohanBigDiff != 0){
+                            if(gohanBigDiff > 0){
+                                diffMessage += "大盛が" + gohanBigDiff + "個増えました。";
+                            }
+                            else if(gohanBigDiff < 0){
+                                diffMessage += "大盛が" + abs(gohanBigDiff) + "個減りました。";
+                            }
+                        }
+
+                        //小盛に変更があるとき
+                        if(gohanSmallDiff != 0){
+                            if(gohanSmallDiff > 0){
+                                diffMessage += "小盛が" + gohanSmallDiff + "個増えました。";
+                            }
+                            else if(gohanSmallDiff < 0){
+                                diffMessage += "小盛が" + abs(gohanSmallDiff) + "個減りました。";
+                            }
+                        }
+
+
+
+                        String gohanStr ="ご飯の合計数は "  + gohanNum + " です。";
+                        String gohanSubStr = diffMessage;
 
                         gohanStr = gohanStr.replace(String.valueOf(gohanNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(gohanNum) + "</font></strong> です");
                         gohanStr = gohanStr.replace("箱" + String.valueOf(gohanBox) + "個", "箱<strong><font color=\"red\">" + String.valueOf(gohanBox) + "</font></strong>個");
                         gohanStr = gohanStr.replace(String.valueOf(gohanRem) + "個", "<strong><font color=\"red\">" + String.valueOf(gohanRem) + "</font></strong>個");
 
-                        gohanSubStr = gohanSubStr.replace("普通盛は" + String.valueOf(gohanNum - (gohanBigNum + gohanSmallNum)), "普通盛は<strong><font color=\"magenta\">" + String.valueOf(gohanNum - (gohanBigNum + gohanSmallNum)) + "</font></strong>");
-                        gohanSubStr = gohanSubStr.replace("大盛は" + String.valueOf(gohanBigNum), "大盛は<strong><font color=\"magenta\">" + String.valueOf(gohanBigNum) + "</font></strong>");
-                        gohanSubStr = gohanSubStr.replace("小盛は" + String.valueOf(gohanSmallNum), "小盛は<strong><font color=\"magenta\">" + String.valueOf(gohanSmallNum) + "</font></strong>");
+                        gohanSubStr = gohanSubStr.replace(diffMessage, "<strong><font color=\"red\">" + diffMessage + "</font></strong>");
                         gohan.setText(Html.fromHtml(gohanStr));
                         gohanSub.setText(Html.fromHtml(gohanSubStr));
                     }
@@ -209,7 +337,7 @@ public class Prepare2Activity extends AppCompatActivity {
                     break;
 
                 case R.id.btClear:
-                    clearEditText(dailyEdit, daily2Edit, dailyPlusEdit, dailyPlus2Edit, sdEdit, sd2Edit, karuEdit, karu2Edit);
+                    clearEditText(dailyEdit, daily2Edit, dailyPlusEdit, dailyPlus2Edit, sdEdit, sd2Edit, karuEdit, karu2Edit, gohanBigEdit, gohanSmallEdit);
                     clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
                     break;
 

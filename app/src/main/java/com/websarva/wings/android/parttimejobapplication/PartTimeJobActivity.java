@@ -77,10 +77,23 @@ public class PartTimeJobActivity extends AppCompatActivity {
         private int gohanBigNum = 0;
         private int gohanSmallNum =  0;
 
+
+        private boolean checkEntered(){
+            //未入力を検出
+            if(TextUtils.isEmpty(dailyEdit.getText()) || TextUtils.isEmpty(daily2Edit.getText()) || TextUtils.isEmpty(dailyPlusEdit.getText()) || TextUtils.isEmpty(dailyPlus2Edit.getText()) ||
+                    TextUtils.isEmpty(sdEdit.getText()) || TextUtils.isEmpty(sd2Edit.getText()) || TextUtils.isEmpty(karuEdit.getText()) || TextUtils.isEmpty(karu2Edit.getText())
+                    || TextUtils.isEmpty(gohanBigEdit.getText()) || TextUtils.isEmpty(gohanSmallEdit.getText())){
+                clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
+                menu1.setText(Html.fromHtml("<strong><font color=\"red\">未入力箇所があります。</font></strong>"));
+                return false;
+            }
+            return true;
+        }
+
+
         @Override
         public void onClick(View view){
             int id = view.getId();
-
 
             switch (id) {
 
@@ -89,11 +102,7 @@ public class PartTimeJobActivity extends AppCompatActivity {
                     gohanNum = 0;
 
                     //未入力を検出
-                    if(TextUtils.isEmpty(dailyEdit.getText()) || TextUtils.isEmpty(daily2Edit.getText()) || TextUtils.isEmpty(dailyPlusEdit.getText()) || TextUtils.isEmpty(dailyPlus2Edit.getText()) ||
-                            TextUtils.isEmpty(sdEdit.getText()) || TextUtils.isEmpty(sd2Edit.getText()) || TextUtils.isEmpty(karuEdit.getText()) || TextUtils.isEmpty(karu2Edit.getText())
-                            || TextUtils.isEmpty(gohanBigEdit.getText()) || TextUtils.isEmpty(gohanSmallEdit.getText())){
-                        clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
-                        menu1.setText(Html.fromHtml("<strong><font color=\"red\">未入力箇所があります。</font></strong>"));
+                    if (!checkEntered()){
                         break;
                     }
 
@@ -207,19 +216,23 @@ public class PartTimeJobActivity extends AppCompatActivity {
                     break;
 
                 case R.id.btClear:
-                    clearEditText(dailyEdit, daily2Edit, dailyPlusEdit, dailyPlus2Edit, sdEdit, sd2Edit, karuEdit, karu2Edit);
+                    clearEditText(dailyEdit, daily2Edit, dailyPlusEdit, dailyPlus2Edit, sdEdit, sd2Edit, karuEdit, karu2Edit, gohanBigEdit, gohanSmallEdit);
                     clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
                     break;
 
                 case R.id.btPrepareNext:
+                    if(!checkEntered()){
+                        break;
+                    }
                     Intent intent = new Intent(PartTimeJobActivity.this, Prepare2Activity.class);
-                    intent.putExtra("dailyNum", dailyNum);
-                    intent.putExtra("dailyPlusNum", dailyPlusNum);
-                    intent.putExtra("sdNum", sdNum);
-                    intent.putExtra("karuNum", karuNum);
-                    intent.putExtra("gohanNum", gohanNum);
-                    intent.putExtra("gohanBigNum", gohanBigNum);
-                    intent.putExtra("gohanSmallNum", gohanSmallNum);
+                    intent.putExtra("dailyNum", Integer.parseInt(dailyEdit.getText().toString()) + Integer.parseInt(daily2Edit.getText().toString()));
+                    intent.putExtra("dailyPlusNum", Integer.parseInt(dailyPlusEdit.getText().toString()) + Integer.parseInt(dailyPlus2Edit.getText().toString()));
+                    intent.putExtra("sdNum", Integer.parseInt(sdEdit.getText().toString()) + Integer.parseInt(sd2Edit.getText().toString()));
+                    intent.putExtra("karuNum", Integer.parseInt(karuEdit.getText().toString()) + Integer.parseInt(karu2Edit.getText().toString()));
+                    intent.putExtra("gohanNum", (Integer.parseInt(dailyEdit.getText().toString())) + Integer.parseInt(dailyPlusEdit.getText().toString()) +
+                    Integer.parseInt(sdEdit.getText().toString()) + Integer.parseInt(karuEdit.getText().toString()));
+                    intent.putExtra("gohanBigNum", Integer.parseInt(gohanBigEdit.getText().toString()));
+                    intent.putExtra("gohanSmallNum", Integer.parseInt(gohanSmallEdit.getText().toString()));
 
                     startActivity(intent);
                     break;
