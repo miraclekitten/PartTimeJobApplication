@@ -101,6 +101,24 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/gahanBig_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/gohanBig"
+        app:layout_constraintBaseline_toBaselineOf="@+id/gohanBig_edittext"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/gahanSmall_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/gohanSmall"
+        app:layout_constraintBaseline_toBaselineOf="@+id/gohanSmall_edittext"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/karubi2_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -212,6 +230,40 @@
         android:selectAllOnFocus="true"/>
 
     <EditText
+        android:id="@+id/gohanBig_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:gravity="right"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true"
+        android:text="0"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/karubi2_edittext" />
+
+    <EditText
+        android:id="@+id/gohanSmall_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:gravity="right"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true"
+        android:text="0"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/gohanBig_edittext" />
+
+    <EditText
         android:id="@+id/karubi2_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -298,7 +350,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dailyPlus2_edittext">
+        app:layout_constraintTop_toBottomOf="@+id/gohanSmall_edittext">
 
         <TextView
             android:id="@+id/prepare_syokiti"
@@ -330,19 +382,29 @@
                 android:id="@+id/menu3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/linearlayout_line"/>
+                android:background="@drawable/linearlayout_line" />
 
             <TextView
                 android:id="@+id/menu4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/linearlayout_line"/>
+                android:background="@drawable/linearlayout_line" />
 
             <TextView
                 android:id="@+id/gohan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/linearlayout_line"/>
+                android:background="@drawable/linearlayout_line"
+                android:singleLine="false" />
+
+            <TextView
+                android:id="@+id/gohanSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/linearlayout_line"
+                android:singleLine="false" />
+
+
 
 
         </LinearLayout>

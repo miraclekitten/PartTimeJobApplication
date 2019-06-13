@@ -50,11 +50,14 @@ public class PartTimeJobActivity extends AppCompatActivity {
             EditText sd2Edit = findViewById(R.id.sd2_edittext);
             EditText karuEdit = findViewById(R.id.karubi_edittext);
             EditText karu2Edit = findViewById(R.id.karubi2_edittext);
+            EditText gohanBigEdit = (EditText) findViewById(R.id.gohanBig_edittext);
+            EditText gohanSmallEdit = (EditText) findViewById(R.id.gohanSmall_edittext);
             TextView menu1 = findViewById(R.id.menu1);
             TextView menu2 = findViewById(R.id.menu2);
             TextView menu3 = findViewById(R.id.menu3);
             TextView menu4 = findViewById(R.id.menu4);
             TextView gohan = findViewById(R.id.gohan);
+            TextView gohanSub = findViewById(R.id.gohanSub);
 
             switch (id) {
 
@@ -62,8 +65,9 @@ public class PartTimeJobActivity extends AppCompatActivity {
 
                     //未入力を検出
                     if(TextUtils.isEmpty(dailyEdit.getText()) || TextUtils.isEmpty(daily2Edit.getText()) || TextUtils.isEmpty(dailyPlusEdit.getText()) || TextUtils.isEmpty(dailyPlus2Edit.getText()) ||
-                            TextUtils.isEmpty(sdEdit.getText()) || TextUtils.isEmpty(sd2Edit.getText()) || TextUtils.isEmpty(karuEdit.getText()) || TextUtils.isEmpty(karu2Edit.getText())){
-                        clearMenu(menu1, menu2, menu3, menu4, gohan);
+                            TextUtils.isEmpty(sdEdit.getText()) || TextUtils.isEmpty(sd2Edit.getText()) || TextUtils.isEmpty(karuEdit.getText()) || TextUtils.isEmpty(karu2Edit.getText())
+                            || TextUtils.isEmpty(gohanBigEdit.getText()) || TextUtils.isEmpty(gohanSmallEdit.getText())){
+                        clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
                         menu1.setText(Html.fromHtml("<strong><font color=\"red\">未入力箇所があります。</font></strong>"));
                         break;
                     }
@@ -85,7 +89,7 @@ public class PartTimeJobActivity extends AppCompatActivity {
                         gohanNum += Integer.parseInt(dailyEdit.getText().toString());
                     }
                     else{
-                        clearMenu(menu1, menu2, menu3, menu4, gohan);
+                        clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
                         menu1.setText(Html.fromHtml("<strong><font color=\"red\">デイリーの値を入力して下さい</font></strong>"));
                         clearEditText(dailyEdit, daily2Edit);
                         break;
@@ -107,7 +111,7 @@ public class PartTimeJobActivity extends AppCompatActivity {
                         gohanNum += Integer.parseInt(dailyPlusEdit.getText().toString());
                     }
                     else{
-                        clearMenu(menu1, menu2, menu3, menu4, gohan);
+                        clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
                         menu1.setText(Html.fromHtml("<strong><font color=\"red\">デイリープラスの値を入力して下さい</font></strong>"));
                         clearEditText(dailyPlusEdit, dailyPlus2Edit);
                         break;
@@ -158,11 +162,20 @@ public class PartTimeJobActivity extends AppCompatActivity {
                     if(gohanNum != 0){
                         int gohanBox = gohanNum / 20;
                         int gohanRem = gohanNum % 20;
+                        int gohanBigNum = Integer.parseInt(gohanBigEdit.getText().toString());
+                        int gohanSmallNum =  Integer.parseInt(gohanSmallEdit.getText().toString());
                         String gohanStr = "ごはんの合計数は " + gohanNum + " です。(箱" + gohanBox + "個と" + gohanRem + "個です)";
-                        gohanStr = gohanStr.replace(String.valueOf(gohanNum), "<strong><font color=\"blue\">" + String.valueOf(gohanNum) + "</font></strong>");
-                        gohanStr = gohanStr.replace(String.valueOf(gohanBox), "<strong><font color=\"red\">" + String.valueOf(gohanBox) + "</font></strong>");
-                        gohanStr = gohanStr.replace(String.valueOf(gohanRem), "<strong><font color=\"red\">" + String.valueOf(gohanRem) + "</font></strong>");
+                        String gohanSubStr = "普通盛は" + (gohanNum - (gohanBigNum + gohanSmallNum)) + "個で、大盛は" + gohanBigNum + "個で、小盛は" + gohanSmallNum + "個です。";
+
+                        gohanStr = gohanStr.replace(String.valueOf(gohanNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(gohanNum) + "</font></strong> です");
+                        gohanStr = gohanStr.replace("箱" + String.valueOf(gohanBox) + "個", "箱<strong><font color=\"red\">" + String.valueOf(gohanBox) + "</font></strong>個");
+                        gohanStr = gohanStr.replace(String.valueOf(gohanRem) + "個", "<strong><font color=\"red\">" + String.valueOf(gohanRem) + "</font></strong>個");
+
+                        gohanSubStr = gohanSubStr.replace("普通盛は" + String.valueOf(gohanNum - (gohanBigNum + gohanSmallNum)), "普通盛は<strong><font color=\"magenta\">" + String.valueOf(gohanNum - (gohanBigNum + gohanSmallNum)) + "</font></strong>");
+                        gohanSubStr = gohanSubStr.replace("大盛は" + String.valueOf(gohanBigNum), "大盛は<strong><font color=\"magenta\">" + String.valueOf(gohanBigNum) + "</font></strong>");
+                        gohanSubStr = gohanSubStr.replace("小盛は" + String.valueOf(gohanSmallNum), "小盛は<strong><font color=\"magenta\">" + String.valueOf(gohanSmallNum) + "</font></strong>");
                         gohan.setText(Html.fromHtml(gohanStr));
+                        gohanSub.setText(Html.fromHtml(gohanSubStr));
                     }
 
 
@@ -170,7 +183,7 @@ public class PartTimeJobActivity extends AppCompatActivity {
 
                 case R.id.btClear:
                     clearEditText(dailyEdit, daily2Edit, dailyPlusEdit, dailyPlus2Edit, sdEdit, sd2Edit, karuEdit, karu2Edit);
-                    clearMenu(menu1, menu2, menu3, menu4, gohan);
+                    clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
                     break;
 
             }
@@ -214,6 +227,12 @@ public class PartTimeJobActivity extends AppCompatActivity {
 
         EditText karu2 = (EditText) findViewById(R.id.karubi2_edittext);
         karu2.setInputType(TYPE_CLASS_NUMBER);
+
+        EditText gohanBig = (EditText) findViewById(R.id.gohanBig_edittext);
+        gohanBig.setInputType(TYPE_CLASS_NUMBER);
+
+        EditText gohanSmall = (EditText) findViewById(R.id.gohanSmall_edittext);
+        gohanSmall.setInputType(TYPE_CLASS_NUMBER);
 
     }
 }

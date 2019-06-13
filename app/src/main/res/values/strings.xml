@@ -9,6 +9,8 @@
     <string name="sd2">SD副</string>
     <string name="karubi">カルビ</string>
     <string name="karubi2">カルビ副</string>
+    <string name="gohanBig">ご飯大盛数</string>
+    <string name="gohanSmall">ご飯小盛数</string>
     <string name="prepareSave_btn">計算</string>
     <string name="prepareClear_btn">クリア</string>
     <string name="prepareNext_btn">最終入力画面へ</string>
