@@ -1,12 +1,10 @@
 package com.websarva.wings.android.parttimejobapplication;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,20 +12,24 @@ import android.widget.TextView;
 
 import static android.text.InputType.TYPE_CLASS_NUMBER;
 
-public class PartTimeJobActivity extends AppCompatActivity {
+public class Prepare2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_part_time_job);
+        setContentView(R.layout.activity_prepare2);
+        Intent intent = getIntent();
+
+
         setInputTypes();
 
         Button calcBtn = findViewById(R.id.btCalc);
         Button clearBtn = findViewById(R.id.btClear);
-        Button nextBtn = findViewById(R.id.btPrepareNext);
-        calcBtn.setOnClickListener(new BtnListener());
-        clearBtn.setOnClickListener(new BtnListener());
-        nextBtn.setOnClickListener(new BtnListener());
+        Button todoBtn = findViewById(R.id.btTodo);
+        calcBtn.setOnClickListener(new Prepare2Activity.BtnListener());
+        clearBtn.setOnClickListener(new Prepare2Activity.BtnListener());
+        todoBtn.setOnClickListener(new Prepare2Activity.BtnListener());
+
         /*
         無名クラスでの実装
         calcBtn.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +179,7 @@ public class PartTimeJobActivity extends AppCompatActivity {
                         gohanNum += Integer.parseInt(karuEdit.getText().toString());
                     }
                     else{
-                       menu4.setText("カルビはありません。");
+                        menu4.setText("カルビはありません。");
                     }
 
                     /**
@@ -211,17 +213,8 @@ public class PartTimeJobActivity extends AppCompatActivity {
                     clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
                     break;
 
-                case R.id.btPrepareNext:
-                    Intent intent = new Intent(PartTimeJobActivity.this, Prepare2Activity.class);
-                    intent.putExtra("dailyNum", dailyNum);
-                    intent.putExtra("dailyPlusNum", dailyPlusNum);
-                    intent.putExtra("sdNum", sdNum);
-                    intent.putExtra("karuNum", karuNum);
-                    intent.putExtra("gohanNum", gohanNum);
-                    intent.putExtra("gohanBigNum", gohanBigNum);
-                    intent.putExtra("gohanSmallNum", gohanSmallNum);
-
-                    startActivity(intent);
+                case R.id.btTodo:
+                    finish();
                     break;
 
             }
@@ -273,4 +266,5 @@ public class PartTimeJobActivity extends AppCompatActivity {
         gohanSmall.setInputType(TYPE_CLASS_NUMBER);
 
     }
+
 }
