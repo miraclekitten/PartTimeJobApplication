@@ -293,15 +293,13 @@
                 android:id="@+id/menu1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/linearlayout_line"
-                android:text="test1" />
+                android:background="@drawable/linearlayout_line" />
 
             <TextView
                 android:id="@+id/menu2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/linearlayout_line"
-                android:text="test2" />
+                android:background="@drawable/linearlayout_line" />
         </LinearLayout>
 
 

@@ -66,10 +66,9 @@ public class PartTimeJobActivity extends AppCompatActivity {
                         menu1.setText(Html.fromHtml(dailyStr));
                     }
                     else{
+                        clearMenu(menu1, menu2);
                         menu1.setText(Html.fromHtml("<strong><font color=\"red\">デイリーの値を入力して下さい</font></strong>"));
-                 //     menu1.setTextColor(Color.RED);
-                        dailyEdit.setText("");
-                        daily2Edit.setText("");
+                        clearEditText(dailyEdit, daily2Edit);
                         break;
                     }
 
@@ -86,34 +85,32 @@ public class PartTimeJobActivity extends AppCompatActivity {
 
                     }
                     else{
+                        clearMenu(menu1, menu2);
                         menu1.setText(Html.fromHtml("<strong><font color=\"red\">デイリープラスの値を入力して下さい</font></strong>"));
-                 ///    menu2.setTextColor(Color.RED);
-                        dailyPlusEdit.setText("");
-                        dailyPlus2Edit.setText("");
+                        clearEditText(dailyPlusEdit, dailyPlus2Edit);
                         break;
                     }
-
-
-
-
 
                     break;
 
                 case R.id.btClear:
-                    dailyEdit.setText("");
-                    daily2Edit.setText("");
-                    dailyPlusEdit.setText("");
-                    dailyPlus2Edit.setText("");
-                    sdEdit.setText("");
-                    sd2Edit.setText("");
-                    karuEdit.setText("");
-                    karu2Edit.setText("");
-                    menu1.setText("");
-                    menu2.setText("");
+                    clearEditText(dailyEdit, daily2Edit, dailyPlusEdit, dailyPlus2Edit, sdEdit, sd2Edit, karuEdit, karu2Edit);
+                    clearMenu(menu1, menu2);
                     break;
 
-
             }
+        }
+    }
+
+    private void clearMenu(TextView... menus){
+        for(int i = 0; i < menus.length; i++){
+            menus[i].setText("");
+        }
+    }
+
+    private void clearEditText(EditText... edits){
+        for(int i = 0; i < edits.length; i++){
+            edits[i].setText("");
         }
     }
 
