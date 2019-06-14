@@ -18,5 +18,5 @@
     <string name="todo_btn">TODO画面へ</string>
     <string name="todo_title">ToDo画面</string>
     <string name="departure_btn">出発</string>
-    <string name="backFirst_btn">最初に戻る</string>
+    <string name="back_btn">戻る</string>
 </resources>

@@ -10,10 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.text.InputType.TYPE_CLASS_NUMBER;
 import static java.lang.Math.abs;
 
 public class Prepare2Activity extends AppCompatActivity {
+
+    private  final List<String> diffMessages = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,7 @@ public class Prepare2Activity extends AppCompatActivity {
         private int gohanBigNum = 0;
         private int gohanSmallNum =  0;
 
+
         @Override
         public void onClick(View view){
             int id = view.getId();
@@ -105,6 +111,7 @@ public class Prepare2Activity extends AppCompatActivity {
                     /*
                     デイリーを計算する処理
                      */
+                    String diffMessage = "";
                     if(Integer.parseInt(dailyEdit.getText().toString()) != 0 && Integer.parseInt(daily2Edit.getText().toString()) != 0) {
                         dailyNum = Integer.parseInt(dailyEdit.getText().toString()) + Integer.parseInt(daily2Edit.getText().toString());
                         dailyBox = dailyNum / 8;
@@ -118,7 +125,6 @@ public class Prepare2Activity extends AppCompatActivity {
                         }
 
                         int dailyDiff = dailyNum - preDailyNum;
-                        String diffMessage = null;
                         if(dailyDiff == 0){
                             diffMessage = "デイリーの積み下ろしはありません";
                         } else if(dailyDiff > 0){
@@ -127,17 +133,19 @@ public class Prepare2Activity extends AppCompatActivity {
                             diffMessage = "個降ろしてください";
                         }
 
+
                         String dailyStr = "";
                         if(dailyDiff == 0){
                             dailyStr = "デイリーの合計数は " + dailyNum + " です。(" + diffMessage + ")";
+                            diffMessages.add(diffMessage);
                             dailyStr = dailyStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
                         } else {
                             dailyStr = "デイリーの合計数は " + dailyNum + " です。(" + abs(dailyDiff) + diffMessage + ")";
+                            diffMessages.add("デイリーを" + abs(dailyDiff) + diffMessage);
                             dailyStr = dailyStr.replace(abs(dailyDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(dailyDiff) + diffMessage +  "</font></strong>)");
                         }
 
                         dailyStr = dailyStr.replace(String.valueOf(dailyNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(dailyNum) + "</font></strong> です");
-
                         menu1.setText(Html.fromHtml(dailyStr));
                         gohanNum += Integer.parseInt(dailyEdit.getText().toString());
                     }
@@ -166,7 +174,7 @@ public class Prepare2Activity extends AppCompatActivity {
                         }
 
                         int dailyPlusDiff = dailyPlusNum - preDailyPlusNum;
-                        String diffMessage = null;
+                        diffMessage = "";
                         if(dailyPlusDiff == 0){
                             diffMessage = "デイリープラスの積み下ろしはありません";
                         } else if(dailyPlusDiff > 0){
@@ -179,9 +187,11 @@ public class Prepare2Activity extends AppCompatActivity {
                         String dailyPlusStr = "";
                         if(dailyPlusDiff == 0){
                             dailyPlusStr = "デイリープラスの合計数は " + dailyPlusNum + " です。(" + diffMessage + ")";
+                            diffMessages.add(diffMessage);
                             dailyPlusStr = dailyPlusStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
                         } else {
                             dailyPlusStr = "デイリープラスの合計数は " + dailyPlusNum + " です。(" + abs(dailyPlusDiff) + diffMessage + ")";
+                            diffMessages.add("デイリープラスを" + abs(dailyPlusDiff) + diffMessage);
                             dailyPlusStr = dailyPlusStr.replace(abs(dailyPlusDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(dailyPlusDiff) + diffMessage +  "</font></strong>)");
                         }
 
@@ -200,35 +210,41 @@ public class Prepare2Activity extends AppCompatActivity {
                     SDの入力があった時に計算を行う
                     無ければ何もしない
                      */
+                    int presdNum = intent.getIntExtra("sdNum", 0);
+                        /*
+                        if(presdNum == 0){
+                            clearMenu(menu1, menu2, menu3, menu4);
+                            menu1.setText("予定数に間違いがある可能性があります。(＊SDが0個)");
+                            break;
+                        }
+                        */
+
+                    int sdDiff = sdNum - presdNum;
+                    diffMessage = "";
+                    if(sdDiff == 0){
+                        diffMessage = "SDの積み下ろしはありません";
+                        diffMessages.add(diffMessage);
+                    } else if(sdDiff > 0){
+                        diffMessage = "個積んでください";
+                    } else {
+                        diffMessage = "個降ろしてください";
+                    }
                     if(Integer.parseInt(sdEdit.getText().toString()) != 0 || Integer.parseInt(sd2Edit.getText().toString()) != 0) {
                         sdNum = Integer.parseInt(sdEdit.getText().toString()) + Integer.parseInt(sd2Edit.getText().toString());
                         sdBox = sdNum / 6;
                         sdRem = sdNum % 6;
 
-                        int presdNum = intent.getIntExtra("sdNum", 0);
-                        if(presdNum == 0){
-                            clearMenu(menu1, menu2, menu3, menu4);
-                            menu1.setText("予定数に間違いがある可能性があります。(＊デイリープラスが0個)");
-                            break;
-                        }
 
-                        int sdDiff = sdNum - presdNum;
-                        String diffMessage = null;
-                        if(sdDiff == 0){
-                            diffMessage = "SDの積み下ろしはありません";
-                        } else if(sdDiff > 0){
-                            diffMessage = "個積んでください";
-                        } else {
-                            diffMessage = "個降ろしてください";
-                        }
 
 
                         String sdStr = "";
                         if(sdDiff == 0){
                             sdStr = "SDの合計数は " + sdNum + " です。(" + diffMessage + ")";
+                            diffMessages.add(diffMessage);
                             sdStr = sdStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
                         } else {
-                            sdStr = "SDの合計数は " + dailyNum + " です。(" + abs(sdDiff) + diffMessage + ")";
+                            sdStr = "SDの合計数は " + sdNum + " です。(" + abs(sdDiff) + diffMessage + ")";
+                            diffMessages.add("SDを" + abs(sdDiff) + diffMessage);
                             sdStr = sdStr.replace(abs(sdDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(sdDiff) + diffMessage +  "</font></strong>)");
                         }
                         sdStr = sdStr.replace(String.valueOf(sdNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(sdNum) + "</font></strong> です");
@@ -244,38 +260,36 @@ public class Prepare2Activity extends AppCompatActivity {
                     カルビの入力があった時に計算を行う
                     無ければ何もしない
                      */
+                    int prekaruNum = intent.getIntExtra("karuNum", 0);
+
+                    int karuDiff = karuNum - prekaruNum;
+                    diffMessage = "";
+                    if(karuDiff == 0){
+                        diffMessage = "カルビの積み下ろしはありません";
+                        diffMessages.add(diffMessage);
+                    } else if(karuDiff > 0){
+                        diffMessage = "個積んでください";
+                    } else {
+                        diffMessage = "個降ろしてください";
+                    }
+
                     if(Integer.parseInt(karuEdit.getText().toString()) != 0 || Integer.parseInt(karu2Edit.getText().toString()) != 0) {
                         karuNum = Integer.parseInt(karuEdit.getText().toString()) + Integer.parseInt(karu2Edit.getText().toString());
                         karuBox = karuNum / 6;
                         karuRem = karuNum % 6;
 
 
-                        int prekaruNum = intent.getIntExtra("karuNum", 0);
-                        /*
-                        if(prekaruNum == 0){
-                            clearMenu(menu1, menu2, menu3, menu4);
-                            menu1.setText("予定数に間違いがある可能性があります。(＊カルビが0個)");
-                            break;
-                        }
-                        */
 
-                        int karuDiff = karuNum - prekaruNum;
-                        String diffMessage = null;
-                        if(karuDiff == 0){
-                            diffMessage = "カルビの積み下ろしはありません";
-                        } else if(karuDiff > 0){
-                            diffMessage = "個積んでください";
-                        } else {
-                            diffMessage = "個降ろしてください";
-                        }
 
 
                         String karuStr = "";
                         if(karuDiff == 0){
                             karuStr = "カルビの合計数は " + dailyNum + " です。(" + diffMessage + ")";
+                            diffMessages.add(diffMessage);
                             karuStr = karuStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
                         } else {
                             karuStr = "カルビの合計数は " + dailyNum + " です。(" + abs(karuDiff) + diffMessage + ")";
+                            diffMessages.add("カルビを" + abs(karuDiff) + diffMessage);
                             karuStr = karuStr.replace(abs(karuDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(karuDiff) + diffMessage +  "</font></strong>)");
                         }
                         karuStr = karuStr.replace(String.valueOf(karuNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(karuNum) + "</font></strong> です");
@@ -310,51 +324,59 @@ public class Prepare2Activity extends AppCompatActivity {
                         int gohanBigDiff = gohanBigNum - preGohanBigNum;
                         int gohanSmallDiff = gohanSmallNum - preGohanSmallNum;
 
-                        String diffMessage = "";
+                        diffMessage = "";
+                        String todoDiffMessage = "";
                         if(gohanDiff == 0 && gohanBigDiff == 0 && gohanSmallDiff == 0){
                             diffMessage = "ご飯の積み下ろしはありません。";
+                            diffMessages.add(diffMessage);
                         }
-                        //全体数に変更があるとき
-                        if(gohanDiff != 0){
-                            //全体数に変化はあるが、普通盛によるものでない場合
-                            if(gohanDiff == (gohanBigDiff + gohanSmallDiff)){
+                        else {
+                            //全体数に変更があるとき
+                            if (gohanDiff != 0) {
+                                //全体数に変化はあるが、普通盛によるものでない場合
+                                if (gohanDiff == (gohanBigDiff + gohanSmallDiff)) {
 
-                            }
-                            //普通盛が関係しているとき
-                            else{
-                                if(gohanDiff - (gohanBigDiff + gohanSmallDiff) > 0){
-                                    diffMessage += "普通盛が" + (gohanDiff - (gohanBigDiff + gohanSmallDiff)) +"個増えました。";
                                 }
-                                else{
-                                    diffMessage += "普通盛が" + abs(gohanDiff - (gohanBigDiff + gohanSmallDiff)) +"個減りました。。";
+                                //普通盛が関係しているとき
+                                else {
+                                    if (gohanDiff - (gohanBigDiff + gohanSmallDiff) > 0) {
+                                        diffMessage += "普通盛が" + (gohanDiff - (gohanBigDiff + gohanSmallDiff)) + "個増えました。";
+                                        todoDiffMessage += "普通盛を" + (gohanDiff - (gohanBigDiff + gohanSmallDiff)) + "個増やし";
+                                    } else {
+                                        diffMessage += "普通盛が" + abs(gohanDiff - (gohanBigDiff + gohanSmallDiff)) + "個減りました。。";
+                                        todoDiffMessage += "普通盛を" + abs((gohanDiff - (gohanBigDiff + gohanSmallDiff))) + "個減らし";
+                                    }
                                 }
                             }
-                        }
 
-                        //大盛に変更があるとき
-                        if(gohanBigDiff != 0){
-                            if(gohanBigDiff > 0){
-                                diffMessage += "大盛が" + gohanBigDiff + "個増えました。";
+                            //大盛に変更があるとき
+                            if (gohanBigDiff != 0) {
+                                if (gohanBigDiff > 0) {
+                                    diffMessage += "大盛が" + gohanBigDiff + "個増えました。";
+                                    todoDiffMessage += "、大盛を" + gohanBigDiff + "個増やし";
+                                } else if (gohanBigDiff < 0) {
+                                    diffMessage += "大盛が" + abs(gohanBigDiff) + "個減りました。";
+                                    todoDiffMessage += "、大盛を" + abs(gohanBigDiff) + "個減らし";
+                                }
                             }
-                            else if(gohanBigDiff < 0){
-                                diffMessage += "大盛が" + abs(gohanBigDiff) + "個減りました。";
-                            }
-                        }
 
-                        //小盛に変更があるとき
-                        if(gohanSmallDiff != 0){
-                            if(gohanSmallDiff > 0){
-                                diffMessage += "小盛が" + gohanSmallDiff + "個増えました。";
+                            //小盛に変更があるとき
+                            if (gohanSmallDiff != 0) {
+                                if (gohanSmallDiff > 0) {
+                                    diffMessage += "小盛が" + gohanSmallDiff + "個増えました。";
+                                    todoDiffMessage += "、小盛を" + gohanSmallDiff + "個増やし";
+                                } else if (gohanSmallDiff < 0) {
+                                    diffMessage += "小盛が" + abs(gohanSmallDiff) + "個減りました。";
+                                    todoDiffMessage += "、小盛を" + abs(gohanSmallDiff) + "個減らし";
+                                }
                             }
-                            else if(gohanSmallDiff < 0){
-                                diffMessage += "小盛が" + abs(gohanSmallDiff) + "個減りました。";
-                            }
+                            diffMessages.add(todoDiffMessage + "てください");
                         }
-
 
 
                         String gohanStr ="ご飯の合計数は "  + gohanNum + " です。";
                         String gohanSubStr = diffMessage;
+
 
                         gohanStr = gohanStr.replace(String.valueOf(gohanNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(gohanNum) + "</font></strong> です");
                         gohanStr = gohanStr.replace("箱" + String.valueOf(gohanBox) + "個", "箱<strong><font color=\"red\">" + String.valueOf(gohanBox) + "</font></strong>個");
@@ -374,8 +396,13 @@ public class Prepare2Activity extends AppCompatActivity {
                     break;
 
                 case R.id.btTodo:
-                    finish();
+                    // finish();
                     Intent intent = new Intent(Prepare2Activity.this, ToDoActivity.class);
+
+                    for(int i = 0; i < diffMessages.size(); i++){
+                        intent.putExtra("TODO" + i, diffMessages.get(i));
+                    }
+
                     startActivity(intent);
                     break;
 

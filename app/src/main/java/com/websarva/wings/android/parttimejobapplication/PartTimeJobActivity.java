@@ -1,5 +1,6 @@
 package com.websarva.wings.android.parttimejobapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -221,9 +222,11 @@ public class PartTimeJobActivity extends AppCompatActivity {
                     break;
 
                 case R.id.btPrepareNext:
+                    //未入力のみを検出している。間違いを防ぐため、デイリーなどの数を考慮すべき？
                     if(!checkEntered()){
                         break;
                     }
+
                     Intent intent = new Intent(PartTimeJobActivity.this, Prepare2Activity.class);
                     intent.putExtra("dailyNum", Integer.parseInt(dailyEdit.getText().toString()) + Integer.parseInt(daily2Edit.getText().toString()));
                     intent.putExtra("dailyPlusNum", Integer.parseInt(dailyPlusEdit.getText().toString()) + Integer.parseInt(dailyPlus2Edit.getText().toString()));

@@ -1,10 +1,16 @@
 package com.websarva.wings.android.parttimejobapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ToDoActivity extends AppCompatActivity {
 
@@ -14,17 +20,22 @@ public class ToDoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do);
 
+        setToDoText();
 
         CheckBox box1 = findViewById(R.id.checkBox1);
         CheckBox box2 = findViewById(R.id.checkBox2);
         CheckBox box3 = findViewById(R.id.checkBox3);
+        CheckBox box4 = findViewById(R.id.checkBox4);
+        CheckBox box5 = findViewById(R.id.checkBox5);
 
         box1.setOnClickListener(new CheckClickListener());
         box2.setOnClickListener(new CheckClickListener());
         box3.setOnClickListener(new CheckClickListener());
+        box4.setOnClickListener(new CheckClickListener());
+        box5.setOnClickListener(new CheckClickListener());
 
-        Button backFirstBtn = findViewById(R.id.backFirst_btn);
-        backFirstBtn.setOnClickListener(new View.OnClickListener() {
+        Button backBtn = findViewById(R.id.back_btn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // 最初に戻るボタンが押された時の処理
                 finish();
@@ -50,12 +61,27 @@ public class ToDoActivity extends AppCompatActivity {
         CheckBox box1 = findViewById(R.id.checkBox1);
         CheckBox box2 = findViewById(R.id.checkBox2);
         CheckBox box3 = findViewById(R.id.checkBox3);
-        if (box1.isChecked() && box2.isChecked() && box3.isChecked()){
+        CheckBox box4 = findViewById(R.id.checkBox4);
+        CheckBox box5 = findViewById(R.id.checkBox5);
+
+        if (box1.isChecked() && box2.isChecked() && box3.isChecked() && box4.isChecked() && box5.isChecked()){
             return true;
         }
         return false;
     }
 
+    private void setToDoText(){
+        Intent intent = getIntent();
+        List textViews = new ArrayList<TextView>();
+        textViews.add(findViewById(R.id.todo_text1));
+        textViews.add(findViewById(R.id.todo_text2));
+        textViews.add(findViewById(R.id.todo_text3));
+        textViews.add(findViewById(R.id.todo_text4));
+        textViews.add(findViewById(R.id.todo_text5));
 
-
+        for(int i = 0; i < intent.getExtras().size(); i++){
+            TextView textView = (TextView) textViews.get(i);
+            textView.setText(intent.getStringExtra("TODO" + i));
+        }
+    }
 }
