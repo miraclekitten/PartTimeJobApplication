@@ -96,6 +96,7 @@ public class Prepare2Activity extends AppCompatActivity {
                 case R.id.btCalc:
                     //初期化
                     gohanNum = 0;
+                    diffMessages.clear();
 
                     //未入力を検出
                     if(TextUtils.isEmpty(dailyEdit.getText()) || TextUtils.isEmpty(daily2Edit.getText()) || TextUtils.isEmpty(dailyPlusEdit.getText()) || TextUtils.isEmpty(dailyPlus2Edit.getText()) ||
@@ -218,6 +219,7 @@ public class Prepare2Activity extends AppCompatActivity {
                             break;
                         }
                         */
+                        sdNum = Integer.parseInt(sdEdit.getText().toString()) + Integer.parseInt(sd2Edit.getText().toString());
 
                     int sdDiff = sdNum - presdNum;
                     diffMessage = "";
@@ -229,13 +231,9 @@ public class Prepare2Activity extends AppCompatActivity {
                     } else {
                         diffMessage = "個降ろしてください";
                     }
-                    if(Integer.parseInt(sdEdit.getText().toString()) != 0 || Integer.parseInt(sd2Edit.getText().toString()) != 0) {
                         sdNum = Integer.parseInt(sdEdit.getText().toString()) + Integer.parseInt(sd2Edit.getText().toString());
                         sdBox = sdNum / 6;
                         sdRem = sdNum % 6;
-
-
-
 
                         String sdStr = "";
                         if(sdDiff == 0){
@@ -251,16 +249,15 @@ public class Prepare2Activity extends AppCompatActivity {
                         sdStr = sdStr.replace(abs(sdDiff) + diffMessage, "<strong><font color=\"red\">" + abs(sdDiff) + diffMessage + "</font></strong>");
                         menu3.setText(Html.fromHtml(sdStr));
                         gohanNum += Integer.parseInt(sdEdit.getText().toString());
-                    }
-                    else{
-                        menu3.setText("SDはありません。");
-                    }
+
 
                     /*
                     カルビの入力があった時に計算を行う
                     無ければ何もしない
                      */
                     int prekaruNum = intent.getIntExtra("karuNum", 0);
+
+                    karuNum = Integer.parseInt(karuEdit.getText().toString()) + Integer.parseInt(karu2Edit.getText().toString());
 
                     int karuDiff = karuNum - prekaruNum;
                     diffMessage = "";
@@ -273,22 +270,18 @@ public class Prepare2Activity extends AppCompatActivity {
                         diffMessage = "個降ろしてください";
                     }
 
-                    if(Integer.parseInt(karuEdit.getText().toString()) != 0 || Integer.parseInt(karu2Edit.getText().toString()) != 0) {
+
                         karuNum = Integer.parseInt(karuEdit.getText().toString()) + Integer.parseInt(karu2Edit.getText().toString());
                         karuBox = karuNum / 6;
                         karuRem = karuNum % 6;
 
-
-
-
-
                         String karuStr = "";
                         if(karuDiff == 0){
-                            karuStr = "カルビの合計数は " + dailyNum + " です。(" + diffMessage + ")";
+                            karuStr = "カルビの合計数は " + karuNum + " です。(" + diffMessage + ")";
                             diffMessages.add(diffMessage);
                             karuStr = karuStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
                         } else {
-                            karuStr = "カルビの合計数は " + dailyNum + " です。(" + abs(karuDiff) + diffMessage + ")";
+                            karuStr = "カルビの合計数は " + karuNum + " です。(" + abs(karuDiff) + diffMessage + ")";
                             diffMessages.add("カルビを" + abs(karuDiff) + diffMessage);
                             karuStr = karuStr.replace(abs(karuDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(karuDiff) + diffMessage +  "</font></strong>)");
                         }
@@ -296,10 +289,6 @@ public class Prepare2Activity extends AppCompatActivity {
                         karuStr = karuStr.replace(abs(karuDiff) + diffMessage, "<strong><font color=\"red\">" + abs(karuDiff) + diffMessage + "</font></strong>");
                         menu4.setText(Html.fromHtml(karuStr));
                         gohanNum += Integer.parseInt(karuEdit.getText().toString());
-                    }
-                    else{
-                        menu4.setText("カルビはありません。");
-                    }
 
                     /**
                      * ご飯の処理
@@ -394,6 +383,9 @@ public class Prepare2Activity extends AppCompatActivity {
                 case R.id.btClear:
                     clearEditText(dailyEdit, daily2Edit, dailyPlusEdit, dailyPlus2Edit, sdEdit, sd2Edit, karuEdit, karu2Edit, gohanBigEdit, gohanSmallEdit);
                     clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
+                    //ボタンを押せなくする処理
+                    findViewById(R.id.btTodo).setEnabled(false);
+                    diffMessages.clear();
                     break;
 
                 case R.id.btTodo:

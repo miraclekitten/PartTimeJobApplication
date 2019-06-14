@@ -212,13 +212,15 @@ public class PartTimeJobActivity extends AppCompatActivity {
                         gohan.setText(Html.fromHtml(gohanStr));
                         gohanSub.setText(Html.fromHtml(gohanSubStr));
                     }
-
+                    findViewById(R.id.btPrepareNext).setEnabled(true);
 
                     break;
 
                 case R.id.btClear:
                     clearEditText(dailyEdit, daily2Edit, dailyPlusEdit, dailyPlus2Edit, sdEdit, sd2Edit, karuEdit, karu2Edit, gohanBigEdit, gohanSmallEdit);
                     clearMenu(menu1, menu2, menu3, menu4, gohan, gohanSub);
+                    findViewById(R.id.btPrepareNext).setEnabled(false);
+
                     break;
 
                 case R.id.btPrepareNext:

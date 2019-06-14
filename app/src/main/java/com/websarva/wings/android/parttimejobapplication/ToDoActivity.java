@@ -53,6 +53,11 @@ public class ToDoActivity extends AppCompatActivity {
             } else {
                 departureBtn.setEnabled(false);
             }
+
+           // Intent intent = new Intent();
+          //  startActivity(intent);
+           /// finish();
+
         }
     }
 
