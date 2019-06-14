@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class ToDoActivity extends AppCompatActivity {
         });;
     }
 
-    private class CheckClickListener implements View.OnClickListener{
+    private class CheckClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view){
             Button departureBtn = findViewById(R.id.departureBtn);
@@ -64,7 +65,8 @@ public class ToDoActivity extends AppCompatActivity {
         CheckBox box4 = findViewById(R.id.checkBox4);
         CheckBox box5 = findViewById(R.id.checkBox5);
 
-        if (box1.isChecked() && box2.isChecked() && box3.isChecked() && box4.isChecked() && box5.isChecked()){
+        if (getIntent().getExtras() != null && box1.isChecked() && box2.isChecked() &&
+                box3.isChecked() && box4.isChecked() && box5.isChecked()){
             return true;
         }
         return false;
@@ -79,9 +81,14 @@ public class ToDoActivity extends AppCompatActivity {
         textViews.add(findViewById(R.id.todo_text4));
         textViews.add(findViewById(R.id.todo_text5));
 
-        for(int i = 0; i < intent.getExtras().size(); i++){
-            TextView textView = (TextView) textViews.get(i);
-            textView.setText(intent.getStringExtra("TODO" + i));
+        if(intent.getExtras() == null){
+            String str = "確定ボタンが押されていません。前の画面へ戻ってください。";
+            Toast.makeText(this, str, Toast.LENGTH_LONG).show();
+        } else {
+            for (int i = 0; i < intent.getExtras().size(); i++) {
+                TextView textView = (TextView) textViews.get(i);
+                textView.setText(intent.getStringExtra("TODO" + i));
+            }
         }
     }
 }

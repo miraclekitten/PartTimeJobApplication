@@ -387,7 +387,8 @@ public class Prepare2Activity extends AppCompatActivity {
                         gohanSub.setText(Html.fromHtml(gohanSubStr));
                     }
 
-
+                    //TODO画面へのボタンを有効化
+                    findViewById(R.id.btTodo).setEnabled(true);
                     break;
 
                 case R.id.btClear:
