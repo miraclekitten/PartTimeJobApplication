@@ -127,9 +127,17 @@ public class Prepare2Activity extends AppCompatActivity {
                             diffMessage = "個降ろしてください";
                         }
 
-                        String dailyStr = "デイリーの合計数は " + dailyNum + " です。(" + abs(dailyDiff) + diffMessage + ")";
+                        String dailyStr = "";
+                        if(dailyDiff == 0){
+                            dailyStr = "デイリーの合計数は " + dailyNum + " です。(" + diffMessage + ")";
+                            dailyStr = dailyStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
+                        } else {
+                            dailyStr = "デイリーの合計数は " + dailyNum + " です。(" + abs(dailyDiff) + diffMessage + ")";
+                            dailyStr = dailyStr.replace(abs(dailyDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(dailyDiff) + diffMessage +  "</font></strong>)");
+                        }
+
                         dailyStr = dailyStr.replace(String.valueOf(dailyNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(dailyNum) + "</font></strong> です");
-                        dailyStr = dailyStr.replace(abs(dailyDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(dailyDiff) + diffMessage + ")"+ "</font></strong>");
+
                         menu1.setText(Html.fromHtml(dailyStr));
                         gohanNum += Integer.parseInt(dailyEdit.getText().toString());
                     }
@@ -160,17 +168,25 @@ public class Prepare2Activity extends AppCompatActivity {
                         int dailyPlusDiff = dailyPlusNum - preDailyPlusNum;
                         String diffMessage = null;
                         if(dailyPlusDiff == 0){
-                            diffMessage = "デイリーの積み下ろしはありません";
+                            diffMessage = "デイリープラスの積み下ろしはありません";
                         } else if(dailyPlusDiff > 0){
                             diffMessage = "個積んでください";
                         } else {
                             diffMessage = "個降ろしてください";
                         }
 
-                        String dailyPlusStr = "デイリープラスの合計数は "  + dailyPlusNum + " です。(" + abs(dailyPlusDiff) + diffMessage + ")";
+
+                        String dailyPlusStr = "";
+                        if(dailyPlusDiff == 0){
+                            dailyPlusStr = "デイリープラスの合計数は " + dailyPlusNum + " です。(" + diffMessage + ")";
+                            dailyPlusStr = dailyPlusStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
+                        } else {
+                            dailyPlusStr = "デイリープラスの合計数は " + dailyPlusNum + " です。(" + abs(dailyPlusDiff) + diffMessage + ")";
+                            dailyPlusStr = dailyPlusStr.replace(abs(dailyPlusDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(dailyPlusDiff) + diffMessage +  "</font></strong>)");
+                        }
+
                         dailyPlusStr = dailyPlusStr.replace(String.valueOf(dailyPlusNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(dailyPlusNum) + "</font></strong> です");
-                        dailyPlusStr = dailyPlusStr.replace(abs(dailyPlusDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(dailyPlusDiff) + diffMessage + ")"+ "</font></strong>");
-                        menu2.setText(Html.fromHtml(dailyPlusStr));
+                    menu2.setText(Html.fromHtml(dailyPlusStr));
                         gohanNum += Integer.parseInt(dailyPlusEdit.getText().toString());
                     }
                     else{
@@ -206,7 +222,15 @@ public class Prepare2Activity extends AppCompatActivity {
                             diffMessage = "個降ろしてください";
                         }
 
-                        String sdStr = "SDの合計数は "  + sdNum + " です。(" + abs(sdDiff) + diffMessage + ")";
+
+                        String sdStr = "";
+                        if(sdDiff == 0){
+                            sdStr = "SDの合計数は " + sdNum + " です。(" + diffMessage + ")";
+                            sdStr = sdStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
+                        } else {
+                            sdStr = "SDの合計数は " + dailyNum + " です。(" + abs(sdDiff) + diffMessage + ")";
+                            sdStr = sdStr.replace(abs(sdDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(sdDiff) + diffMessage +  "</font></strong>)");
+                        }
                         sdStr = sdStr.replace(String.valueOf(sdNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(sdNum) + "</font></strong> です");
                         sdStr = sdStr.replace(abs(sdDiff) + diffMessage, "<strong><font color=\"red\">" + abs(sdDiff) + diffMessage + "</font></strong>");
                         menu3.setText(Html.fromHtml(sdStr));
@@ -245,7 +269,15 @@ public class Prepare2Activity extends AppCompatActivity {
                             diffMessage = "個降ろしてください";
                         }
 
-                        String karuStr = "カルビの合計数は "  + karuNum + " です。(" + abs(karuDiff) + diffMessage + ")";
+
+                        String karuStr = "";
+                        if(karuDiff == 0){
+                            karuStr = "カルビの合計数は " + dailyNum + " です。(" + diffMessage + ")";
+                            karuStr = karuStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
+                        } else {
+                            karuStr = "カルビの合計数は " + dailyNum + " です。(" + abs(karuDiff) + diffMessage + ")";
+                            karuStr = karuStr.replace(abs(karuDiff) + diffMessage + ")", "<strong><font color=\"red\">" + abs(karuDiff) + diffMessage +  "</font></strong>)");
+                        }
                         karuStr = karuStr.replace(String.valueOf(karuNum) + " です", "<strong><font color=\"blue\">" + String.valueOf(karuNum) + "</font></strong> です");
                         karuStr = karuStr.replace(abs(karuDiff) + diffMessage, "<strong><font color=\"red\">" + abs(karuDiff) + diffMessage + "</font></strong>");
                         menu4.setText(Html.fromHtml(karuStr));
@@ -343,6 +375,8 @@ public class Prepare2Activity extends AppCompatActivity {
 
                 case R.id.btTodo:
                     finish();
+                    Intent intent = new Intent(Prepare2Activity.this, ToDoActivity.class);
+                    startActivity(intent);
                     break;
 
             }

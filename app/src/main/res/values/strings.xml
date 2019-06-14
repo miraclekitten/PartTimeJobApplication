@@ -16,4 +16,7 @@
     <string name="prepareClear_btn">クリア</string>
     <string name="prepareNext_btn">最終入力画面へ</string>
     <string name="todo_btn">TODO画面へ</string>
+    <string name="todo_title">ToDo画面</string>
+    <string name="departure_btn">出発</string>
+    <string name="backFirst_btn">最初に戻る</string>
 </resources>
