@@ -35,6 +35,9 @@ public class ToDoActivity extends AppCompatActivity {
         box4.setOnClickListener(new CheckClickListener());
         box5.setOnClickListener(new CheckClickListener());
 
+        Button departureBtn = findViewById(R.id.departureBtn);
+        departureBtn.setOnClickListener(new DepartureClickListener());
+
         Button backBtn = findViewById(R.id.back_btn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -42,6 +45,15 @@ public class ToDoActivity extends AppCompatActivity {
                 finish();
             }
         });;
+    }
+
+    private class DepartureClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view){
+            Intent intent = new Intent(ToDoActivity.this, StackAccountActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private class CheckClickListener implements View.OnClickListener {
@@ -53,11 +65,6 @@ public class ToDoActivity extends AppCompatActivity {
             } else {
                 departureBtn.setEnabled(false);
             }
-
-           // Intent intent = new Intent();
-          //  startActivity(intent);
-           /// finish();
-
         }
     }
 

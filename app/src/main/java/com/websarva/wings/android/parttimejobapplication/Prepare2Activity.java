@@ -238,7 +238,6 @@ public class Prepare2Activity extends AppCompatActivity {
                         String sdStr = "";
                         if(sdDiff == 0){
                             sdStr = "SDの合計数は " + sdNum + " です。(" + diffMessage + ")";
-                            diffMessages.add(diffMessage);
                             sdStr = sdStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
                         } else {
                             sdStr = "SDの合計数は " + sdNum + " です。(" + abs(sdDiff) + diffMessage + ")";
@@ -278,7 +277,6 @@ public class Prepare2Activity extends AppCompatActivity {
                         String karuStr = "";
                         if(karuDiff == 0){
                             karuStr = "カルビの合計数は " + karuNum + " です。(" + diffMessage + ")";
-                            diffMessages.add(diffMessage);
                             karuStr = karuStr.replace(diffMessage + ")", "<strong><font color=\"red\">" + diffMessage +  "</font></strong>)");
                         } else {
                             karuStr = "カルビの合計数は " + karuNum + " です。(" + abs(karuDiff) + diffMessage + ")";

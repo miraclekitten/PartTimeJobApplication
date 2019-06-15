@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Prepare2Activity" />
-        <activity android:name=".ToDoActivity"></activity>
+        <activity android:name=".ToDoActivity" />
+        <activity android:name=".StackAccountActivity"></activity>
     </application>
 
 </manifest>
