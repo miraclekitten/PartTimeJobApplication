@@ -20,14 +20,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_LOCATION = "location";
     private static final String COLUMN_LATITUDE = "latitude";
     private static final String COLUMN_LONGITUDE = "longitude";
+    private static final String COLUMN_MEMO = "memo";
 
     private static final String sql = "CREATE TABLE " + TABLE_NAME + " (" +
             _ID + " INTEGER PRIMARY KEY," +
             COLUMN_LOCATION + " TEXT," +
             COLUMN_LATITUDE + " REAL," +
-            COLUMN_LONGITUDE + " REAL)";
+            COLUMN_LONGITUDE + " REAL," +
+            COLUMN_MEMO + " TEXT)";
 
-    private static final String sql2 = "CREATE TABLE account( _id INTEGER PRIMARY KEY, location TEXT, latitude REAL, longitude REAL )";
+    private static final String sql2 = "CREATE TABLE account( _id INTEGER PRIMARY KEY, location TEXT, latitude REAL, longitude REAL, memo TEXT )";
 
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
@@ -43,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //SQLの実行。
-        db.execSQL(sql2);
+        db.execSQL(sql);
     }
 
     @Override

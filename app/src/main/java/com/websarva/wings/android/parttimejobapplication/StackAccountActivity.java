@@ -2,6 +2,7 @@ package com.websarva.wings.android.parttimejobapplication;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,13 +67,25 @@ public class StackAccountActivity extends AppCompatActivity {
             }
         });
 
+
+
+        Button comfirmBtn = findViewById(R.id.confirmBtn);
+        comfirmBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                confirmDatas();
+                //db削除
+                //deleteDatabase("account.db");
+            }
+        });
+
         Button finishBtn = findViewById(R.id.finishAccount_btn);
         finishBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                stopLoc();
-                //db削除
-                //deleteDatabase("account.db");
+                Intent intent = new Intent(StackAccountActivity.this, AggregateActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -115,11 +129,13 @@ public class StackAccountActivity extends AppCompatActivity {
             DatabaseHelper helper = new DatabaseHelper(StackAccountActivity.this);
             //データベース接続オブジェクトの取得
             SQLiteDatabase db = helper.getWritableDatabase();
+            EditText edittext = findViewById(R.id.todoMemo_edittext);
             try{
                 ContentValues values = new ContentValues();
                 values.put("location", "LOCATION");
                 values.put("latitude", (double)location.getLatitude());
                 values.put("longitude", (double)location.getLongitude());
+                values.put("memo", edittext.getText().toString());
 
                 db.insert("account", null, values);
             }
@@ -143,7 +159,7 @@ public class StackAccountActivity extends AppCompatActivity {
         }
     }
 
-    private void stopLoc(){
+    private void confirmDatas(){
 
 
         DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
@@ -152,7 +168,7 @@ public class StackAccountActivity extends AppCompatActivity {
 
         Cursor cursor = db.query(
                 "account",
-                new String[] { "location", "latitude", "longitude" },
+                new String[] { "location", "latitude", "longitude" , "memo"},
                 null,
                 null,
                 null,
@@ -170,6 +186,8 @@ public class StackAccountActivity extends AppCompatActivity {
             sbuilder.append(cursor.getDouble(1));
             sbuilder.append(": ");
             sbuilder.append(cursor.getDouble(2));
+            sbuilder.append(": ");
+            sbuilder.append(cursor.getString(3));
             sbuilder.append("\n");
             cursor.moveToNext();
         }

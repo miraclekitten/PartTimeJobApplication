@@ -15,9 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <meta-data
-            android:name="com.google.android.gms.version" />
+        <meta-data android:name="com.google.android.gms.version" />
 
         <activity android:name=".PartTimeJobActivity">
             <intent-filter>
@@ -28,7 +26,8 @@
         </activity>
         <activity android:name=".Prepare2Activity" />
         <activity android:name=".ToDoActivity" />
-        <activity android:name=".StackAccountActivity"></activity>
+        <activity android:name=".StackAccountActivity" />
+        <activity android:name=".AggregateActivity"></activity>
     </application>
 
 </manifest>

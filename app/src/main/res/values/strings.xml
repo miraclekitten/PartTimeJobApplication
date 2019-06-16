@@ -20,6 +20,7 @@
     <string name="todo_title">ToDo画面</string>
     <string name="departure_btn">出発</string>
     <string name="back_btn">戻る</string>
+    <string name="comfirm">確認</string>
     <string name="saveAccount">保存</string>
     <string name="finishAccount">終了</string>
 </resources>
