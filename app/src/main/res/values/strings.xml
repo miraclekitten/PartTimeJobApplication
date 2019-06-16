@@ -22,5 +22,5 @@
     <string name="back_btn">戻る</string>
     <string name="comfirm">確認</string>
     <string name="saveAccount">保存</string>
-    <string name="finishAccount">終了</string>
+    <string name="finish">終了</string>
 </resources>

@@ -1,11 +1,14 @@
 package com.websarva.wings.android.parttimejobapplication;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +23,18 @@ public class AggregateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aggregate);
         readSavedDatas();
+
+        Button finishBtn = findViewById(R.id.aggregateFin_btn);
+        finishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteDatabase("account.db");
+                //アプリ全体を終了させないといけない
+                finishAndRemoveTask();
+            }
+        });
+
+
     }
 
 
