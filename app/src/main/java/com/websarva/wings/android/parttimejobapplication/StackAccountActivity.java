@@ -1,9 +1,12 @@
 package com.websarva.wings.android.parttimejobapplication;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.location.Location;
 import android.os.Looper;
@@ -62,6 +65,16 @@ public class StackAccountActivity extends AppCompatActivity {
             }
         });
 
+        Button finishBtn = findViewById(R.id.finishAccount_btn);
+        finishBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                stopLoc();
+                //db削除
+                //deleteDatabase("account.db");
+            }
+        });
+
     }
 
     /**
@@ -97,27 +110,22 @@ public class StackAccountActivity extends AppCompatActivity {
             // 現在値を取得
             Location location = locationResult.getLastLocation();
             TextView view = findViewById(R.id.testText);
-            view.setText("緯度:" + location.getLatitude() + " 経度:" + location.getLongitude());
+          //  view.setText("緯度:" + location.getLatitude() + " 経度:" + location.getLongitude());
 
             DatabaseHelper helper = new DatabaseHelper(StackAccountActivity.this);
             //データベース接続オブジェクトの取得
             SQLiteDatabase db = helper.getWritableDatabase();
             try{
-                String sqlIns = "INSERT INTO account (_id, locationName, latitude, longitude) VALUES(?,?,?,?)";
-                SQLiteStatement stmt = db.compileStatement(sqlIns);
-                stmt.bindLong(1,  1);
-                stmt.bindString(2, "LOCATION");
-                stmt.bindLong(3, (long)location.getLatitude());
-                stmt.bindLong(4, (long)location.getLongitude());
+                ContentValues values = new ContentValues();
+                values.put("location", "LOCATION");
+                values.put("latitude", (double)location.getLatitude());
+                values.put("longitude", (double)location.getLongitude());
 
-
-
+                db.insert("account", null, values);
             }
             finally {
                 db.close();
             }
-
-
         };
     }
 
@@ -133,6 +141,45 @@ public class StackAccountActivity extends AppCompatActivity {
             // 位置情報取得開始
             startUpdateLocation();
         }
+    }
+
+    private void stopLoc(){
+
+
+        DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Log.d("debug","**********Cursor");
+
+        Cursor cursor = db.query(
+                "account",
+                new String[] { "location", "latitude", "longitude" },
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        cursor.moveToFirst();
+
+        StringBuilder sbuilder = new StringBuilder();
+
+        for (int i = 0; i < cursor.getCount(); i++) {
+            sbuilder.append(cursor.getString(0));
+            sbuilder.append(": ");
+            sbuilder.append(cursor.getDouble(1));
+            sbuilder.append(": ");
+            sbuilder.append(cursor.getDouble(2));
+            sbuilder.append("\n");
+            cursor.moveToNext();
+        }
+
+        // 忘れずに！
+        cursor.close();
+
+        TextView textView = findViewById(R.id.testText);
+        Log.d("debug","**********"+sbuilder.toString());
+        textView.setText(sbuilder.toString());
     }
 
 
