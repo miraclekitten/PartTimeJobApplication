@@ -33,8 +33,6 @@ public class AggregateActivity extends AppCompatActivity {
                 finishAndRemoveTask();
             }
         });
-
-
     }
 
 
@@ -94,7 +92,8 @@ public class AggregateActivity extends AppCompatActivity {
                 latLon = companyMap.get(key);
                 nearestCompanyLatitude = latLon[0];
                 nearestCompanyLogitude = latLon[1];
-                resultCompany = key;
+                //ID + key
+                resultCompany = "" + latLon[2] + ":" +  key;
                 continue;
             }
 
@@ -108,7 +107,8 @@ public class AggregateActivity extends AppCompatActivity {
             } else if (results1[0] > results2[0]){
                 nearestCompanyLatitude = companyMap.get(key)[0];
                 nearestCompanyLogitude = companyMap.get(key)[1];
-                resultCompany = key;
+                //ID + key
+                resultCompany = "" + latLon[2] + ":" +  key;
                 //前と今が位置情報同じとき
             } else {
                 return "計算ミス";
