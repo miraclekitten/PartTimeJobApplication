@@ -1,6 +1,7 @@
 package com.websarva.wings.android.parttimejobapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
@@ -24,13 +25,30 @@ public class AggregateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_aggregate);
         readSavedDatas();
 
-        Button finishBtn = findViewById(R.id.aggregateFin_btn);
+        final Button finishBtn = findViewById(R.id.aggregateFin_btn);
+        Button confirmBtn = findViewById(R.id.aggregateConfirFin_btn);
+
+        //誤ってアプリを終了させないようにボタンを二重化
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finishBtn.setEnabled(true);
+            }
+        });
+
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 deleteDatabase("account.db");
-                //アプリ全体を終了させないといけない
-                finishAndRemoveTask();
+                /*
+                FLAG_ACTIVITY_CLEAR_TOPは、遷移先のアクティビティが既に動いていればそのアクティビティより上にあるアクティビティを消す、という挙動を設定する。
+                これによって、A→B→C→D→Aと遷移した後にbackボタンを押してもDに戻ることはなくなる。
+                FLAG_ACTIVITY_SINGLE_TOPは、既に動いているアクティビティに遷移するとそのアクティビティを閉じてもう一度作りなおすデフォルトの挙動（multiple mode）から、
+                作りなおさずに再利用する挙動に変更する。これによって、D→Aへの遷移のときのアニメーションが戻る動きになる。
+                 */
+                Intent intent = new Intent(AggregateActivity.this, PartTimeJobActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }
@@ -59,6 +77,7 @@ public class AggregateActivity extends AppCompatActivity {
             String ans = "";
             ans = calcLocation(cursor.getDouble(1), cursor.getDouble(2)) + ": " + cursor.getString(3);
             sbuilder.append(ans);
+            sbuilder.append("\n");
             cursor.moveToNext();
         }
         String memos = sbuilder.toString();

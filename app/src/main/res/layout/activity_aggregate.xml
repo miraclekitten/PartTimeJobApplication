@@ -20,7 +20,7 @@
             android:id="@+id/aggregate_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="集計けっか" />
+            android:text="集計結果" />
 
 
         <TextView
@@ -41,12 +41,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/aggregateFin_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/aggregateConfirFin_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comfirm" />
 
-        android:text="@string/finish" />
+        <Button
+            android:id="@+id/aggregateFin_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/finish" />
 
 
     </LinearLayout>

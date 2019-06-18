@@ -330,7 +330,7 @@ public class Prepare2Activity extends AppCompatActivity {
                                         diffMessage += "普通盛が" + (gohanDiff - (gohanBigDiff + gohanSmallDiff)) + "個増えました。";
                                         todoDiffMessage += "普通盛を" + (gohanDiff - (gohanBigDiff + gohanSmallDiff)) + "個増やし";
                                     } else {
-                                        diffMessage += "普通盛が" + abs(gohanDiff - (gohanBigDiff + gohanSmallDiff)) + "個減りました。。";
+                                        diffMessage += "普通盛が" + abs(gohanDiff - (gohanBigDiff + gohanSmallDiff)) + "個減りました。";
                                         todoDiffMessage += "普通盛を" + abs((gohanDiff - (gohanBigDiff + gohanSmallDiff))) + "個減らし";
                                     }
                                 }
