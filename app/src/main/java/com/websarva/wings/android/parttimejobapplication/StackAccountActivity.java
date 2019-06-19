@@ -64,6 +64,42 @@ public class StackAccountActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 位置情報取得開始
                 startUpdateLocation();
+
+                // 位置情報取得権限の確認
+                if(ActivityCompat.checkSelfPermission(StackAccountActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // 権限がない場合、許可ダイアログ表示
+                    String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
+                    ActivityCompat.requestPermissions(StackAccountActivity.this, permissions, 2000);
+                    return;
+                }
+
+                FusedLocationProviderClient client = new FusedLocationProviderClient(StackAccountActivity.this);
+
+                client.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+
+                    DatabaseHelper helper = new DatabaseHelper(StackAccountActivity.this);
+                    //データベース接続オブジェクトの取得
+                    SQLiteDatabase db = helper.getWritableDatabase();
+                    EditText edittext = findViewById(R.id.todoMemo_edittext);
+                    try{
+                        ContentValues values = new ContentValues();
+                        values.put("location", "LOCATION");
+                        values.put("latitude", (double)location.getLatitude());
+                        values.put("longitude", (double)location.getLongitude());
+                        values.put("memo", edittext.getText().toString());
+
+                        db.insert("account", null, values);
+                    }
+                    finally {
+                        db.close();
+                    }
+                }
+            });
+
+
+
             }
         });
 
@@ -105,8 +141,8 @@ public class StackAccountActivity extends AppCompatActivity {
 
         // 位置情報の取得方法を設定
         LocationRequest locationRequest = LocationRequest.create();
- //       locationRequest.setInterval(10000);       // 位置情報更新間隔の希望
- //       locationRequest.setFastestInterval(5000); // 位置情報更新間隔の最速値
+        locationRequest.setInterval(10000);       // 位置情報更新間隔の希望
+        locationRequest.setFastestInterval(5000); // 位置情報更新間隔の最速値
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY); // この位置情報要求の優先度
 
         fusedLocationClient.requestLocationUpdates(locationRequest,  new MyLocationCallback(), null);
@@ -121,28 +157,14 @@ public class StackAccountActivity extends AppCompatActivity {
             if (locationResult == null) {
                 return;
             }
+
             // 現在値を取得
             Location location = locationResult.getLastLocation();
             TextView view = findViewById(R.id.testText);
           //  view.setText("緯度:" + location.getLatitude() + " 経度:" + location.getLongitude());
 
-            DatabaseHelper helper = new DatabaseHelper(StackAccountActivity.this);
-            //データベース接続オブジェクトの取得
-            SQLiteDatabase db = helper.getWritableDatabase();
-            EditText edittext = findViewById(R.id.todoMemo_edittext);
-            try{
-                ContentValues values = new ContentValues();
-                values.put("location", "LOCATION");
-                values.put("latitude", (double)location.getLatitude());
-                values.put("longitude", (double)location.getLongitude());
-                values.put("memo", edittext.getText().toString());
 
-                db.insert("account", null, values);
-            }
-            finally {
-                db.close();
-            }
-        };
+        }
     }
 
     /**

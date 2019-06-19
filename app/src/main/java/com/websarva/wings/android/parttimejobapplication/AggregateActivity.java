@@ -106,9 +106,9 @@ public class AggregateActivity extends AppCompatActivity {
         Double[] latLon = {0.0, 0.0};
         String resultCompany = "";
         for (String key : companyMap.keySet()) {
+            latLon = companyMap.get(key);
             //一番初めのみ
-            if(latLon[0] == 0.0 && latLon[1] == 0.0) {
-                latLon = companyMap.get(key);
+            if( nearestCompanyLatitude == 0.0 || nearestCompanyLogitude == 0.0) {
                 nearestCompanyLatitude = latLon[0];
                 nearestCompanyLogitude = latLon[1];
                 //ID + key
@@ -116,6 +116,8 @@ public class AggregateActivity extends AppCompatActivity {
                 continue;
             }
 
+            results1 = new float[3];
+            results2 = new float[3];
             Location.distanceBetween(latitude, longitude, nearestCompanyLatitude, nearestCompanyLogitude, results1);
             Location.distanceBetween(latitude, longitude, companyMap.get(key)[0], companyMap.get(key)[1], results2);
 
@@ -133,7 +135,8 @@ public class AggregateActivity extends AppCompatActivity {
                 return "計算ミス";
             }
         }
-
+        nearestCompanyLatitude = 0.0;
+        nearestCompanyLogitude = 0.0;
         return resultCompany;
 
     }
