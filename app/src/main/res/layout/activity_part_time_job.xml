@@ -34,16 +34,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:gravity="right"
-        android:inputType = "number"
+        android:inputType="number"
         android:selectAllOnFocus="true"
         android:text="0"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toTopOf="@+id/karubi_edittext" />
 
 
     <TextView
@@ -153,13 +152,13 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:gravity="right"
-        android:inputType = "number"
+        android:inputType="number"
         android:selectAllOnFocus="true"
         android:text="0"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/sdSet_edittext" />
+        app:layout_constraintTop_toTopOf="@+id/karubi2_edittext" />
 
     <EditText
         android:id="@+id/sd2_edittext"
@@ -187,13 +186,13 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:gravity="right"
-        android:inputType = "number"
+        android:inputType="number"
         android:selectAllOnFocus="true"
         android:text="0"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/sd2_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <EditText
         android:id="@+id/karubi_edittext"
@@ -221,13 +220,13 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:gravity="right"
-        android:inputType = "number"
+        android:inputType="number"
         android:selectAllOnFocus="true"
         android:text="0"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/karubi_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/sdSet_edittext" />
 
     <EditText
         android:id="@+id/gohanBig_edittext"
